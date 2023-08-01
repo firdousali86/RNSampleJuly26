@@ -2,10 +2,14 @@ import React from 'react';
 import {TextInput, View, Button, Text} from 'react-native';
 
 class MyOwnControl extends React.Component {
-  state = {
-    myTextValue: 'Firdous Ali',
-    pressCount: 0,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      myTextValue: 'Firdous Ali',
+      pressCount: 0,
+    };
+  }
 
   headerView = () => {
     const {bgColor} = this.props;
@@ -37,10 +41,25 @@ class MyOwnControl extends React.Component {
     );
   };
 
+  renderAuthorizedView = () => {
+    return <Text>this is authorized view</Text>;
+  };
+
+  renderUnAuthorizedView = () => {
+    return <Text>this is un authorized view</Text>;
+  };
+
   render() {
+    const {children, bgColor} = this.props;
+
     return (
       <View>
         {this.headerView()}
+        {bgColor == 'red' ? children : null}
+
+        {bgColor == 'green'
+          ? this.renderAuthorizedView()
+          : this.renderUnAuthorizedView()}
         {this.footerView()}
       </View>
     );

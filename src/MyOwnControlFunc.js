@@ -1,7 +1,7 @@
-import {TextInput, View, Button, Alert} from 'react-native';
+import {TextInput, View, Button, Alert, Text} from 'react-native';
 
 const MyOwnControlFunc = props => {
-  const {bgColor} = props;
+  const {bgColor, children} = props;
 
   const headerView = () => {
     return (
@@ -22,9 +22,21 @@ const MyOwnControlFunc = props => {
     );
   };
 
+  const renderAuthorizedView = () => {
+    return <Text>this is authorized view</Text>;
+  };
+
+  const renderUnAuthorizedView = () => {
+    return <Text>this is un authorized view</Text>;
+  };
+
   return (
     <View>
       {headerView()}
+
+      {bgColor == 'blue' ? children : null}
+
+      {bgColor == 'yellow' ? renderAuthorizedView() : renderUnAuthorizedView()}
       {footerView()}
     </View>
   );

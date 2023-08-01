@@ -7,7 +7,7 @@
 
 import React from 'react';
 import type {PropsWithChildren} from 'react';
-import {SafeAreaView, ScrollView, ImageBackground} from 'react-native';
+import {SafeAreaView, ScrollView, ImageBackground, Text} from 'react-native';
 import MyOwnControl from './MyOwnControl';
 import MyOwnControlFunc from './MyOwnControlFunc';
 import UserProfile from './UserProfile';
@@ -22,8 +22,12 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={{}}>
-      <MyOwnControl bgColor={'red'} />
-      <MyOwnControlFunc bgColor={'blue'} />
+      <MyOwnControl bgColor={'red'}>
+        <Text>Hey! This text is embedded inside myowncontrol</Text>
+      </MyOwnControl>
+      <MyOwnControlFunc bgColor={'blue'}>
+        <Text>Hey! This text is embedded inside myowncontrolfunc</Text>
+      </MyOwnControlFunc>
       {/* <ImageBackground
         source={{
           uri: 'https://www.thedrive.com/uploads/2022/04/24/NGAD-F22.jpg?auto=webp&crop=16%3A9&auto=webp&optimize=high&quality=70&width=1440',
