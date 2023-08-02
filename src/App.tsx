@@ -14,12 +14,27 @@ import {
   Text,
   View,
   TextInput,
+  TouchableOpacity,
+  Button,
+  FlatList,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import MyOwnControl from './MyOwnControl';
 import MyOwnControlFunc from './MyOwnControlFunc';
 import UserProfile from './UserProfile';
 
 import LevelOne from './LevelOne';
+
+const cityData = [
+  {name: 'London'},
+  {name: 'NY'},
+  {name: 'Delhi'},
+  {name: 'Sydney'},
+  {name: 'Melbourne'},
+  {name: 'Cairo'},
+  {name: 'Istanbul'},
+  {name: 'Karachi'},
+];
 
 function App(): JSX.Element {
   // const onTextInputValueChanged = changedText => {
@@ -30,8 +45,74 @@ function App(): JSX.Element {
   // };
 
   const [textValue, setTextValue] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalTextValue, setModalTextValue] = useState('');
+  const [cityValues, setCityValues] = useState(cityData);
 
   console.log('hey this is app render');
+
+  const renderFlatList = () => {
+    return (
+      <FlatList
+        style={{margin: 10}}
+        data={cityValues}
+        renderItem={({item, index}) => {
+          return (
+            <View
+              style={{
+                backgroundColor: 'white',
+                height: 50,
+                borderBottomColor: 'black',
+                borderBottomWidth: 0.5,
+                justifyContent: 'center',
+                margin: 5,
+              }}>
+              <Text style={{marginHorizontal: 10}}>{item.name}</Text>
+            </View>
+          );
+        }}
+      />
+    );
+  };
+
+  const renderModal = () => {
+    return (
+      <Modal
+        isVisible={isModalVisible}
+        hasBackdrop
+        style={{height: 250}}
+        onBackdropPress={() => {
+          console.log('sdfsdf');
+        }}>
+        <View style={{flex: 1}}>
+          <Text>Hello!</Text>
+          <TextInput
+            value={modalTextValue}
+            onChangeText={changedText => {
+              setModalTextValue(changedText);
+            }}
+            style={{backgroundColor: 'white', height: 44, margin: 5}}
+          />
+
+          <TouchableOpacity
+            onPress={() => {
+              setCityValues([...cityValues, {name: modalTextValue}]);
+              setModalTextValue('');
+
+              setIsModalVisible(false);
+            }}
+            style={{
+              height: 44,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+    );
+  };
 
   return (
     <SafeAreaView
@@ -39,39 +120,24 @@ function App(): JSX.Element {
         flex: 1,
         backgroundColor: 'pink',
         flexDirection: 'column',
-        justifyContent: 'space-evenly',
-        alignItems: 'flex-start',
       }}>
-      <TextInput
-        value={textValue}
-        onChangeText={changedText => {
-          setTextValue(changedText);
-        }}
-        placeholder={'textinput'}
-        style={{
-          backgroundColor: 'white',
-          height: 44,
-          marginHorizontal: 30,
-          alignSelf: 'stretch',
-        }}
-      />
-      <LevelOne />
-      <LevelOne />
+      {renderFlatList()}
 
-      {/* <MyOwnControl bgColor={'red'} initialDisplayName="Awais Iqbal">
-        <Text>Hey! This text is embedded inside myowncontrol</Text>
-      </MyOwnControl>
-      <MyOwnControlFunc bgColor={'blue'} initialDisplayName="Awais Iqbal">
-        <Text>Hey! This text is embedded inside myowncontrolfunc</Text>
-      </MyOwnControlFunc> */}
-      {/* <ImageBackground
-        source={{
-          uri: 'https://www.thedrive.com/uploads/2022/04/24/NGAD-F22.jpg?auto=webp&crop=16%3A9&auto=webp&optimize=high&quality=70&width=1440',
+      <TouchableOpacity
+        style={{
+          backgroundColor: 'yellow',
+          margin: 10,
+          height: 60,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={() => {
+          setIsModalVisible(true);
         }}>
-        <ScrollView>
-          <UserProfile />
-        </ScrollView>
-      </ImageBackground> */}
+        <Text>Show Modal</Text>
+      </TouchableOpacity>
+
+      {renderModal()}
     </SafeAreaView>
   );
 }

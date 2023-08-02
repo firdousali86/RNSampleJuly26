@@ -1,23 +1,37 @@
 import {View} from 'react-native';
 import LevelTwo from './LevelTwo';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const LevelOne = () => {
-  console.log('hey this is level one render');
+class LevelOne extends React.PureComponent {
+  render() {
+    const {bgColor} = this.props;
 
-  return (
-    <View
-      style={{
-        width: 120,
-        height: 120,
-        backgroundColor: 'yellow',
-        margin: 5,
-        flexDirection: 'column',
-      }}>
-      <LevelTwo />
-      <LevelTwo />
-      <LevelTwo />
-    </View>
-  );
-};
+    console.log('hey this is level one render');
+
+    return (
+      <View
+        style={{
+          width: 120,
+          height: 180,
+          backgroundColor: bgColor,
+          margin: 5,
+          flexDirection: 'column',
+        }}>
+        <LevelTwo />
+        <LevelTwo />
+        <LevelTwo />
+      </View>
+    );
+  }
+}
 
 export default LevelOne;
+
+LevelOne.propTypes = {
+  bgColor: PropTypes.string.isRequired,
+};
+
+LevelOne.defaultProps = {
+  bgColor: 'yellow',
+};
