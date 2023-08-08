@@ -6,35 +6,27 @@
  */
 
 import React, {useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  ImageBackground,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  FlatList,
-} from 'react-native';
-import Modal from 'react-native-modal';
-import MyOwnControl from './MyOwnControl';
-import MyOwnControlFunc from './MyOwnControlFunc';
-import UserProfile from './UserProfile';
 
-import LevelOne from './LevelOne';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const cityData = [
-  {name: 'London'},
-  {name: 'NY'},
-  {name: 'Delhi'},
-  {name: 'Sydney'},
-  {name: 'Melbourne'},
-  {name: 'Cairo'},
-  {name: 'Istanbul'},
-  {name: 'Karachi'},
-];
+// import HomeScreen from './containers/HomeScreen';
+// import LoginScreen from './containers/LoginScreen';
+
+import {HomeScreen, LoginScreen} from './containers';
+
+const Stack = createNativeStackNavigator();
+
+// const cityData = [
+//   {name: 'London'},
+//   {name: 'NY'},
+//   {name: 'Delhi'},
+//   {name: 'Sydney'},
+//   {name: 'Melbourne'},
+//   {name: 'Cairo'},
+//   {name: 'Istanbul'},
+//   {name: 'Karachi'},
+// ];
 
 function App(): JSX.Element {
   // const onTextInputValueChanged = changedText => {
@@ -44,101 +36,43 @@ function App(): JSX.Element {
   //   );
   // };
 
-  const [textValue, setTextValue] = useState('');
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalTextValue, setModalTextValue] = useState('');
-  const [cityValues, setCityValues] = useState(cityData);
+  // const [cityValues, setCityValues] = useState(cityData);
 
-  console.log('hey this is app render');
-
-  const renderFlatList = () => {
-    return (
-      <FlatList
-        style={{margin: 10}}
-        data={cityValues}
-        renderItem={({item, index}) => {
-          return (
-            <View
-              style={{
-                backgroundColor: 'white',
-                height: 50,
-                borderBottomColor: 'black',
-                borderBottomWidth: 0.5,
-                justifyContent: 'center',
-                margin: 5,
-              }}>
-              <Text style={{marginHorizontal: 10}}>{item.name}</Text>
-            </View>
-          );
-        }}
-      />
-    );
-  };
-
-  const renderModal = () => {
-    return (
-      <Modal
-        isVisible={isModalVisible}
-        hasBackdrop
-        style={{height: 250}}
-        onBackdropPress={() => {
-          console.log('sdfsdf');
-        }}>
-        <View style={{flex: 1}}>
-          <Text>Hello!</Text>
-          <TextInput
-            value={modalTextValue}
-            onChangeText={changedText => {
-              setModalTextValue(changedText);
-            }}
-            style={{backgroundColor: 'white', height: 44, margin: 5}}
-          />
-
-          <TouchableOpacity
-            onPress={() => {
-              setCityValues([...cityValues, {name: modalTextValue}]);
-              setModalTextValue('');
-
-              setIsModalVisible(false);
-            }}
-            style={{
-              height: 44,
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-    );
-  };
+  // const renderFlatList = () => {
+  //   return (
+  //     <FlatList
+  //       style={{margin: 10}}
+  //       data={cityValues}
+  //       renderItem={({item, index}) => {
+  //         return (
+  //           <View
+  //             style={{
+  //               backgroundColor: 'white',
+  //               height: 50,
+  //               borderBottomColor: 'black',
+  //               borderBottomWidth: 0.5,
+  //               justifyContent: 'center',
+  //               margin: 5,
+  //             }}>
+  //             <Text style={{marginHorizontal: 10}}>{item.name}</Text>
+  //           </View>
+  //         );
+  //       }}
+  //     />
+  //   );
+  // };
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: 'pink',
-        flexDirection: 'column',
-      }}>
-      {renderFlatList()}
-
-      <TouchableOpacity
-        style={{
-          backgroundColor: 'yellow',
-          margin: 10,
-          height: 60,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onPress={() => {
-          setIsModalVisible(true);
-        }}>
-        <Text>Show Modal</Text>
-      </TouchableOpacity>
-
-      {renderModal()}
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'Overview'}}
+        />
+        <Stack.Screen name="Login" component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
