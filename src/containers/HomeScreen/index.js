@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import TestLifecycleFunct from '../TestLifecycleFunct';
 import Modal from 'react-native-modal';
+import LevelOne from '../../LevelOne';
+import {MyContextProvider} from '../../contexts/MyContext';
 
 const HomeScreen = props => {
   // console.log('home > render');
@@ -17,6 +19,15 @@ const HomeScreen = props => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalTextValue, setModalTextValue] = useState('');
   const [textValue, setTextValue] = useState('');
+
+  React.useEffect(() => {
+    if (props.route.params) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+
+      console.log(props.route.params);
+    }
+  }, [props.route.params]);
 
   const renderModal = () => {
     return (
@@ -108,7 +119,9 @@ const HomeScreen = props => {
         }}
       />
 
-      <TestLifecycleFunct inputValue={textinput} />
+      <MyContextProvider>
+        <LevelOne />
+      </MyContextProvider>
 
       {renderModal()}
     </SafeAreaView>

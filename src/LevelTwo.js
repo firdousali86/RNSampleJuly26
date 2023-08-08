@@ -1,7 +1,7 @@
 import {View} from 'react-native';
 import LevelThree from './LevelThree';
 
-const LevelTwo = () => {
+const LevelTwo = props => {
   console.log('hey this is level two render');
 
   return (

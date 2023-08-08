@@ -1,9 +1,16 @@
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
+import {useMyContext} from './contexts/MyContext';
 
-const LevelThree = () => {
+const LevelThree = props => {
   console.log('hey this is level three render');
 
-  return <View style={{flex: 1, backgroundColor: 'red', margin: 5}}></View>;
+  const {data, updateData} = useMyContext();
+
+  return (
+    <View style={{flex: 1, backgroundColor: 'red', margin: 5}}>
+      <Text>{data.city}</Text>
+    </View>
+  );
 };
 
 export default LevelThree;

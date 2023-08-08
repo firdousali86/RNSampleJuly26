@@ -18,9 +18,9 @@ class LevelOne extends React.PureComponent {
           margin: 5,
           flexDirection: 'column',
         }}>
-        <LevelTwo />
-        <LevelTwo />
-        <LevelTwo />
+        <LevelTwo city={this.props.city} />
+        <LevelTwo city={this.props.city} />
+        <LevelTwo city={this.props.city} />
       </View>
     );
   }

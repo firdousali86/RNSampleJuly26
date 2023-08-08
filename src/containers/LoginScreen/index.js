@@ -36,6 +36,21 @@ const LoginScreen = props => {
         }}>
         <Text>pop to top</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          //   props.navigation.popToTop();
+          props.navigation.navigate({
+            name: 'Home',
+            params: {
+              firstName: 'Firdous',
+              data: {city: 'Karachi', country: 'Pakistan'},
+            },
+            merge: true,
+          });
+        }}>
+        <Text>Pass back the props to home</Text>
+      </TouchableOpacity>
     </View>
   );
 };
