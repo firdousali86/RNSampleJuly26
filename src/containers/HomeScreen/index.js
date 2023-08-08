@@ -119,7 +119,7 @@ const HomeScreen = props => {
         }}
       />
 
-      <MyContextProvider>
+      <MyContextProvider value={textinput2}>
         <LevelOne />
       </MyContextProvider>
 

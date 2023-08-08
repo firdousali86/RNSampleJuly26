@@ -13,7 +13,7 @@ const LevelThree = props => {
         onPress={() => {
           updateData({city: 'New York'});
         }}>
-        <Text>Tap to change city</Text>
+        <Text>Tap to change</Text>
       </TouchableOpacity>
     </View>
   );

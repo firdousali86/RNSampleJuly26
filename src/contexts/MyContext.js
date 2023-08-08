@@ -1,9 +1,13 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useState, useEffect} from 'react';
 
 const MyContext = createContext();
 
-export function MyContextProvider({children}) {
-  const [data, setData] = useState({city: 'London'});
+export function MyContextProvider({children, value}) {
+  const [data, setData] = useState({city: value});
+
+  useEffect(() => {
+    setData({city: value});
+  }, [value]);
 
   const updateData = newdata => {
     setData(newdata);
