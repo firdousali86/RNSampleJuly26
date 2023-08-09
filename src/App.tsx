@@ -16,7 +16,7 @@ import UserProfile from './UserProfile';
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-  const isUserLoggedIn = false;
+  const isUserLoggedIn = true;
 
   const getAuthStack = () => {
     return (
