@@ -1,3 +1,5 @@
+import {useEffect, useState} from 'react';
+
 import {
   View,
   TouchableOpacity,
@@ -7,8 +9,19 @@ import {
 } from 'react-native';
 import CommonTextInput from './CommonTextInput';
 import CommonFormButton from './CommonFormButton';
+import PersistantHelper from './helpers/PersistantHelper';
 
 const UserProfile = () => {
+  const [fetchedValue, setFetchedValue] = useState('');
+
+  useEffect(async () => {
+    const fetchedText = await PersistantHelper.getValue('myTextInput');
+
+    if (fetchedText) {
+      setFetchedValue(fetchedText);
+    }
+  }, []);
+
   const submitHandler = () => {
     console.log('onpress called from userprofile');
   };
@@ -32,6 +45,7 @@ const UserProfile = () => {
           alignItems: 'center',
         }}
       />
+      <Text>{fetchedValue}</Text>
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -10,6 +10,7 @@ import TestLifecycleFunct from '../TestLifecycleFunct';
 import Modal from 'react-native-modal';
 import LevelOne from '../../LevelOne';
 import {MyContextProvider} from '../../contexts/MyContext';
+import PersistantHelper from '../../helpers/PersistantHelper';
 
 const HomeScreen = props => {
   // console.log('home > render');
@@ -68,6 +69,14 @@ const HomeScreen = props => {
     );
   };
 
+  const onTapped = useCallback(() => {
+    console.log('level one is tapped');
+  }, []);
+
+  const onTapped2 = useCallback(() => {
+    console.log('level one is tapped');
+  }, []);
+
   return (
     <SafeAreaView
       style={{
@@ -98,9 +107,9 @@ const HomeScreen = props => {
           alignItems: 'center',
         }}
         onPress={() => {
-          props.navigation.navigate('Login');
+          props.navigation.navigate('UserProfile');
         }}>
-        <Text>Navigate to login</Text>
+        <Text>Navigate to UserProfile</Text>
       </TouchableOpacity>
 
       <TextInput
@@ -119,9 +128,14 @@ const HomeScreen = props => {
         }}
       />
 
-      <MyContextProvider value={textinput2}>
-        <LevelOne />
-      </MyContextProvider>
+      <TouchableOpacity
+        onPress={() => {
+          PersistantHelper.setValue('myTextInput', textinput2);
+        }}>
+        <Text>save to async</Text>
+      </TouchableOpacity>
+
+      <LevelOne onTapped={onTapped} onTapped2={onTapped2} />
 
       {renderModal()}
     </SafeAreaView>
