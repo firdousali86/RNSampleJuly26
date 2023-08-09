@@ -3,7 +3,7 @@ import LevelTwo from './LevelTwo';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class LevelOne extends React.PureComponent {
+class LevelOne extends React.Component {
   render() {
     const {bgColor} = this.props;
 

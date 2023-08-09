@@ -11,19 +11,42 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {HomeScreen, LoginScreen} from './containers';
+import UserProfile from './UserProfile';
 
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
+  const isUserLoggedIn = false;
+
+  const getAuthStack = () => {
+    return (
+      <Stack.Group>
+        <Stack.Screen name="Login" component={LoginScreen} />
+      </Stack.Group>
+    );
+  };
+
+  const getMainStack = () => {
+    return (
+      <Stack.Group>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{title: 'Overview'}}
         />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen
+          name="UserProfile"
+          component={UserProfile}
+          options={{title: 'Overview'}}
+        />
+      </Stack.Group>
+    );
+  };
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {isUserLoggedIn ? getMainStack() : getAuthStack()}
       </Stack.Navigator>
     </NavigationContainer>
   );
