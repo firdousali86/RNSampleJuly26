@@ -13,6 +13,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen, LoginScreen} from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
+import {EventRegister} from 'react-native-event-listeners';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,14 +28,20 @@ function App(): JSX.Element {
 
   useEffect(() => {
     getUserName();
+
+    let event = EventRegister.addEventListener('userLoggedIn', data => {
+      setIsUserLoggedIn(data.username ? true : false);
+    });
+
+    return () => {
+      EventRegister.removeEventListener(event);
+    };
   }, []);
 
   const getAuthStack = () => {
     return (
       <Stack.Group>
-        <Stack.Screen name="Login">
-          {() => <LoginScreen setIsUserLoggedIn={setIsUserLoggedIn} />}
-        </Stack.Screen>
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Group>
     );
   };

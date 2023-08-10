@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, Text, TextInput} from 'react-native';
 import styles from './styles';
 import PersistantHelper from '../../helpers/PersistantHelper';
+import {EventRegister} from 'react-native-event-listeners';
 
 const LoginScreen = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const {route, setIsUserLoggedIn} = props;
+  const {route} = props;
 
   return (
     <View>
@@ -30,8 +31,9 @@ const LoginScreen = props => {
       <TouchableOpacity
         style={styles.submit}
         onPress={() => {
-          setIsUserLoggedIn(true);
-          // PersistantHelper.setValue('username', username);
+          PersistantHelper.setValue('username', username);
+
+          EventRegister.emit('userLoggedIn', {username});
         }}>
         <Text style={styles.buttontext}>Login</Text>
       </TouchableOpacity>

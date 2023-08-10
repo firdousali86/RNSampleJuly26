@@ -11,6 +11,7 @@ import Modal from 'react-native-modal';
 import LevelOne from '../../LevelOne';
 import {MyContextProvider} from '../../contexts/MyContext';
 import PersistantHelper from '../../helpers/PersistantHelper';
+import {EventRegister} from 'react-native-event-listeners';
 
 const HomeScreen = props => {
   // console.log('home > render');
@@ -140,6 +141,8 @@ const HomeScreen = props => {
       <TouchableOpacity
         onPress={() => {
           PersistantHelper.deleteValue('username', null);
+
+          EventRegister.emit('userLoggedIn', {username: undefined});
         }}
         style={{height: 44, backgroundColor: 'green'}}>
         <Text>Logout</Text>
