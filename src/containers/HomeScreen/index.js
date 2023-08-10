@@ -137,6 +137,14 @@ const HomeScreen = props => {
 
       <LevelOne onTapped={onTapped} onTapped2={onTapped2} />
 
+      <TouchableOpacity
+        onPress={() => {
+          PersistantHelper.deleteValue('username', null);
+        }}
+        style={{height: 44, backgroundColor: 'green'}}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
+
       {renderModal()}
     </SafeAreaView>
   );

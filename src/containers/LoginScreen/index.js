@@ -1,55 +1,39 @@
-import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import React, {useState} from 'react';
+import {View, TouchableOpacity, Text, TextInput} from 'react-native';
+import styles from './styles';
+import PersistantHelper from '../../helpers/PersistantHelper';
 
 const LoginScreen = props => {
-  const {route} = props;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const {route, setIsUserLoggedIn} = props;
 
   return (
     <View>
-      <Text>this is a login screen</Text>
-
-      <Text>Username is: {route?.params?.username}</Text>
-      <Text>Email is: {route?.params?.email}</Text>
-
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate('Home');
-        }}>
-        <Text>nav to login</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.push('Login');
-        }}>
-        <Text>push login</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.goBack();
-        }}>
-        <Text>goback</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.popToTop();
-        }}>
-        <Text>pop to top</Text>
-      </TouchableOpacity>
+      <TextInput
+        value={username}
+        onChangeText={changedText => {
+          setUsername(changedText);
+        }}
+        placeholder="Enter Username"
+        style={styles.textinput}
+      />
+      <TextInput
+        value={password}
+        onChangeText={changedText => {
+          setPassword(changedText);
+        }}
+        placeholder="Enter Password"
+        style={styles.textinput}
+      />
 
       <TouchableOpacity
+        style={styles.submit}
         onPress={() => {
-          //   props.navigation.popToTop();
-          props.navigation.navigate({
-            name: 'Home',
-            params: {
-              firstName: 'Firdous',
-              data: {city: 'Karachi', country: 'Pakistan'},
-            },
-            merge: true,
-          });
+          setIsUserLoggedIn(true);
+          // PersistantHelper.setValue('username', username);
         }}>
-        <Text>Pass back the props to home</Text>
+        <Text style={styles.buttontext}>Login</Text>
       </TouchableOpacity>
     </View>
   );

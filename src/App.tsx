@@ -5,23 +5,36 @@
  * @format
  */
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {HomeScreen, LoginScreen} from './containers';
 import UserProfile from './UserProfile';
+import PersistantHelper from './helpers/PersistantHelper';
 
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-  const isUserLoggedIn = true;
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  const getUserName = async () => {
+    const username = await PersistantHelper.getValue('username');
+
+    setIsUserLoggedIn(username ? true : false);
+  };
+
+  useEffect(() => {
+    getUserName();
+  }, []);
 
   const getAuthStack = () => {
     return (
       <Stack.Group>
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login">
+          {() => <LoginScreen setIsUserLoggedIn={setIsUserLoggedIn} />}
+        </Stack.Screen>
       </Stack.Group>
     );
   };

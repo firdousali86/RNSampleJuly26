@@ -24,6 +24,14 @@ class PersistantHelper {
       // error reading value
     }
   };
+
+  deleteValue = async key => {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      // remove error
+    }
+  };
 }
 
 export default new PersistantHelper();
