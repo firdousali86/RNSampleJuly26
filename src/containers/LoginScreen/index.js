@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TouchableOpacity, Text, TextInput} from 'react-native';
 import styles from './styles';
 import PersistantHelper from '../../helpers/PersistantHelper';
@@ -8,6 +8,13 @@ const LoginScreen = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const {route} = props;
+
+  useEffect(() => {
+    PersistantHelper.setObject('mytestobject', {
+      firstName: 'Firdous',
+      lastName: 'Ali',
+    });
+  }, []);
 
   return (
     <View>

@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   SafeAreaView,
   TouchableOpacity,
@@ -30,6 +30,12 @@ const HomeScreen = props => {
       console.log(props.route.params);
     }
   }, [props.route.params]);
+
+  useEffect(() => {
+    PersistantHelper.getObject('mytestobject').then(data => {
+      console.log(data);
+    });
+  }, []);
 
   const renderModal = () => {
     return (

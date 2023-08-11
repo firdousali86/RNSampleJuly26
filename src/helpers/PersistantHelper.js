@@ -1,6 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class PersistantHelper {
+  setObject = (key, data) => {
+    console.log('set object is called');
+
+    const stringifiedObject = JSON.stringify(data);
+
+    this.setValue(key, stringifiedObject);
+  };
+
+  getObject = async key => {
+    const stringifiedObject = await this.getValue(key);
+
+    return JSON.parse(stringifiedObject);
+  };
+
   setValue = async (key, value) => {
     try {
       await AsyncStorage.setItem(key, value);
