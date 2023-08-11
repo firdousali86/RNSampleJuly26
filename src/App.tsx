@@ -10,7 +10,7 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {HomeScreen, LoginScreen} from './containers';
+import {HomeScreen, LoginScreen, ListScreen} from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
 import {EventRegister} from 'react-native-event-listeners';
@@ -49,6 +49,11 @@ function App(): JSX.Element {
   const getMainStack = () => {
     return (
       <Stack.Group>
+        <Stack.Screen
+          name="ListScreen"
+          component={ListScreen}
+          options={{title: 'List'}}
+        />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
