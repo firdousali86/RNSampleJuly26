@@ -1,24 +1,48 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {View, FlatList, Text} from 'react-native';
+import {ApiHelper} from '../../helpers';
 
 const ListScreen = () => {
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos', {})
-      .then(x => x.json())
-      .then(data => {
-        console.log(data);
+  const [myListData, setMyListData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchListFromApi = () => {
+    setIsLoading(true);
+
+    ApiHelper.get('/todos')
+      .then(response => {
+        setMyListData(response);
+        setIsLoading(false);
       })
-      .catch(err => {
-        console.log(err);
+      .catch(error => {
+        setIsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchListFromApi();
   }, []);
 
   return (
     <View style={{flex: 1}}>
       <FlatList
-        data={['a', 'b', 'c', 'd']}
+        refreshing={isLoading}
+        data={myListData}
+        onRefresh={() => {
+          fetchListFromApi();
+        }}
         renderItem={({item, index}) => {
-          return <Text>{item}</Text>;
+          return (
+            <View
+              style={{
+                height: 60,
+                marginHorizontal: 10,
+                borderBottomColor: 'black',
+                borderBottomWidth: 1,
+              }}>
+              <Text>{item.title}</Text>
+            </View>
+          );
         }}
       />
     </View>
