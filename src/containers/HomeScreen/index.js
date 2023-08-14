@@ -21,9 +21,9 @@ import {
 } from '../../features/counter/counterSlice';
 
 const HomeScreen = props => {
-  // console.log('home > render');
+  console.log('home > render');
 
-  const count = useSelector(state => state.counter.value);
+  // const count = useSelector(state => state.counter.value);
   const dispatch = useDispatch();
 
   const [textinput, settextinput] = useState('');
@@ -151,8 +151,6 @@ const HomeScreen = props => {
         }}>
         <Text>save to async</Text>
       </TouchableOpacity>
-
-      <Text>{count}</Text>
 
       <TouchableOpacity
         onPress={() => {
