@@ -10,7 +10,7 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {HomeScreen, LoginScreen, ListScreen} from './containers';
+import {HomeScreen, LoginScreen, ListScreen, CartScreen} from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
 import {EventRegister} from 'react-native-event-listeners';
@@ -52,19 +52,25 @@ function App(): JSX.Element {
     return (
       <Stack.Group>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Overview'}}
-        />
-        <Stack.Screen
           name="ListScreen"
           component={ListScreen}
           options={{title: 'List'}}
         />
         <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'Overview'}}
+        />
+
+        <Stack.Screen
           name="UserProfile"
           component={UserProfile}
           options={{title: 'Overview'}}
+        />
+        <Stack.Screen
+          name="CartScreen"
+          component={CartScreen}
+          options={{title: 'Cart'}}
         />
       </Stack.Group>
     );
