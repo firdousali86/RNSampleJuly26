@@ -12,9 +12,19 @@ import LevelOne from '../../LevelOne';
 import {MyContextProvider} from '../../contexts/MyContext';
 import PersistantHelper from '../../helpers/PersistantHelper';
 import {EventRegister} from 'react-native-event-listeners';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  increment,
+  decrement,
+  incrementByAmount,
+  decrementByAmount,
+} from '../../features/counter/counterSlice';
 
 const HomeScreen = props => {
   // console.log('home > render');
+
+  const count = useSelector(state => state.counter.value);
+  const dispatch = useDispatch();
 
   const [textinput, settextinput] = useState('');
   const [textinput2, settextinput2] = useState('');
@@ -140,6 +150,22 @@ const HomeScreen = props => {
           PersistantHelper.setValue('myTextInput', textinput2);
         }}>
         <Text>save to async</Text>
+      </TouchableOpacity>
+
+      <Text>{count}</Text>
+
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(increment());
+        }}>
+        <Text>Increment</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(decrement());
+        }}>
+        <Text>Decrement</Text>
       </TouchableOpacity>
 
       <LevelOne onTapped={onTapped} onTapped2={onTapped2} />
