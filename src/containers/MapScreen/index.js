@@ -1,8 +1,32 @@
-import {useRef} from 'react';
+import {useRef, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import MapControl from '../../controls/MapControl';
+import {LocationHelper} from '../../helpers';
 
 const MapScreen = () => {
+  useEffect(() => {
+    LocationHelper.checkLocationPermission(
+      () => {
+        LocationHelper.trackUserLocation(
+          locationObject => {
+            console.log(locationObject);
+
+            if (locationObject.coords) {
+              parentControlMapRef.current.animateToCustomLocation({
+                latitude: locationObject.coords.latitude,
+                longitude: locationObject.coords.longitude,
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.0121,
+              });
+            }
+          },
+          error => {},
+        );
+      },
+      () => {},
+    );
+  }, []);
+
   const parentControlMapRef = useRef(null);
 
   //37.3346437,-122.0138429
