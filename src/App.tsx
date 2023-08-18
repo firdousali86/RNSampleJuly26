@@ -10,7 +10,13 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {HomeScreen, LoginScreen, ListScreen, CartScreen} from './containers';
+import {
+  HomeScreen,
+  LoginScreen,
+  ListScreen,
+  CartScreen,
+  MapScreen,
+} from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
 import {EventRegister} from 'react-native-event-listeners';
@@ -51,6 +57,7 @@ function App(): JSX.Element {
   const getMainStack = () => {
     return (
       <Stack.Group>
+        <Stack.Screen name="MapScreen" component={MapScreen} />
         <Stack.Screen
           name="ListScreen"
           component={ListScreen}
@@ -79,9 +86,7 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator>
-          {isUserLoggedIn ? getMainStack() : getAuthStack()}
-        </Stack.Navigator>
+        <Stack.Navigator>{getMainStack()}</Stack.Navigator>
       </Provider>
     </NavigationContainer>
   );
