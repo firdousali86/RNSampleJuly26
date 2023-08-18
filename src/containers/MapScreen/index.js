@@ -1,59 +1,31 @@
-import {useRef, useState} from 'react';
+import {useRef} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
-
-const markersArray = [
-  {lat: 0, lon: 0},
-  {lat: 0.5, lon: 0.5},
-  {lat: 1, lon: 1},
-  {lat: 1.5, lon: 1.5},
-  {lat: 2, lon: 2},
-  {lat: 2.5, lon: 2.5},
-];
+import MapControl from '../../controls/MapControl';
 
 const MapScreen = () => {
-  const mapRef = useRef(null);
-
-  const renderMarkers = () => {
-    return markersArray.map((item, index) => {
-      return (
-        <Marker coordinate={{latitude: item.lat, longitude: item.lon}}>
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: 'red',
-            }}>
-            <Text>a</Text>
-          </View>
-        </Marker>
-      );
-    });
-  };
+  const parentControlMapRef = useRef(null);
 
   //37.3346437,-122.0138429
+
+  //animateToCustomLocation
   return (
     <View style={{flex: 1}}>
       <Text>maps</Text>
-
-      <MapView
-        // provider={PROVIDER_GOOGLE} // remove if not using Google Maps
-        style={{flex: 1}}
-        ref={mapRef}
-        showsUserLocation
-        showsMyLocationButton>
-        {renderMarkers()}
-      </MapView>
+      <MapControl ref={parentControlMapRef} style={{flex: 1}} />
       <TouchableOpacity
         onPress={() => {
-          console.log('sdsdf');
-          mapRef.current.animateToRegion({
-            latitude: 37.3346437,
-            longitude: -122.0138429,
+          parentControlMapRef.current.animateToCustomLocation({
+            latitude: 38.5616184,
+            longitude: -121.626236,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           });
+          //   mapRef.current.animateToRegion({
+          //     latitude: 37.3346437,
+          //     longitude: -122.0138429,
+          //     latitudeDelta: 0.015,
+          //     longitudeDelta: 0.0121,
+          //   });
         }}
         style={{
           position: 'absolute',
