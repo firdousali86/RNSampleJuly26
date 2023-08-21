@@ -6,7 +6,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-
+import analytics from '@react-native-firebase/analytics';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -35,6 +35,10 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
+    analytics().logEvent('testrun', {
+      name: 'firdous ali',
+    });
+
     getUserName();
 
     let event = EventRegister.addEventListener('userLoggedIn', data => {
