@@ -1,4 +1,4 @@
-package com.awesomeproject3;
+package com.itcbatchjuly26.androidapp;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

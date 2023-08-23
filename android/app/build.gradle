@@ -96,9 +96,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.awesomeproject3"
+    namespace "com.itcbatchjuly26.androidapp"
     defaultConfig {
-        applicationId "com.awesomeproject3"
+        applicationId "com.itcbatchjuly26.androidapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
