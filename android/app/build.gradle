@@ -1,8 +1,19 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services' 
+// apply plugin: 'com.google.gms.google-services' 
+
+project.ext.envConfigFiles = [
+   productiondebug: ".env.production",
+   productionrelease: ".env.production",
+   developmentrelease: ".env.development",
+   developmentdebug: ".env.development",
+   stagingrelease: ".env.staging",
+   stagingdebug: ".env.staging"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle" // <- add this line
+
 
 import com.android.build.OutputFile
 
@@ -96,7 +107,30 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    flavorDimensions "default"
     namespace "com.awesomeproject3"
+
+    productFlavors {
+        production {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.awesomeproject3"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.awesomeproject3"
+        }
+        staging {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.awesomeproject3.staging"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.awesomeproject3"
+        }
+        development {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId "com.awesomeproject3.development"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", "com.awesomeproject3"
+        }
+    }
+
     defaultConfig {
         applicationId "com.awesomeproject3"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -124,6 +158,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
