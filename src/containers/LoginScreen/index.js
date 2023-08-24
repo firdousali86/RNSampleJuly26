@@ -3,18 +3,12 @@ import {View, TouchableOpacity, Text, TextInput} from 'react-native';
 import styles from './styles';
 import PersistantHelper from '../../helpers/PersistantHelper';
 import {EventRegister} from 'react-native-event-listeners';
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const {route} = props;
-
-  useEffect(() => {
-    PersistantHelper.setObject('mytestobject', {
-      firstName: 'Firdous',
-      lastName: 'Ali',
-    });
-  }, []);
 
   return (
     <View>
@@ -38,11 +32,33 @@ const LoginScreen = props => {
       <TouchableOpacity
         style={styles.submit}
         onPress={() => {
-          PersistantHelper.setValue('username', username);
+          // PersistantHelper.setValue('username', username);
+          // EventRegister.emit('userLoggedIn', {username});
 
-          EventRegister.emit('userLoggedIn', {username});
+          auth()
+            .signInWithEmailAndPassword(username, password)
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
         }}>
         <Text style={styles.buttontext}>Login</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          auth()
+            .signOut()
+            .then(() => {
+              console.log('User signed out!');
+            })
+            .catch(error => {
+              console.log('error');
+            });
+        }}>
+        <Text>logout</Text>
       </TouchableOpacity>
     </View>
   );

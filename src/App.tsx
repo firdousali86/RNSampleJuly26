@@ -16,12 +16,14 @@ import {
   ListScreen,
   CartScreen,
   MapScreen,
+  SignupScreen,
 } from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
 import {EventRegister} from 'react-native-event-listeners';
 import {Provider} from 'react-redux';
 import store from './store';
+import auth from '@react-native-firebase/auth';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,14 @@ function App(): JSX.Element {
 
     setIsUserLoggedIn(username ? true : false);
   };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(userObject => {
+      console.log(userObject);
+    });
+
+    return subscriber;
+  }, []);
 
   useEffect(() => {
     analytics().logEvent('testrun', {
@@ -54,6 +64,7 @@ function App(): JSX.Element {
     return (
       <Stack.Group>
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Signup" component={SignupScreen} />
       </Stack.Group>
     );
   };
@@ -90,7 +101,7 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator>{getMainStack()}</Stack.Navigator>
+        <Stack.Navigator>{getAuthStack()}</Stack.Navigator>
       </Provider>
     </NavigationContainer>
   );
