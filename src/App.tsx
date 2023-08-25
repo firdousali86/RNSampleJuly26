@@ -17,6 +17,7 @@ import {
   CartScreen,
   MapScreen,
   SignupScreen,
+  FirestoreScreen,
 } from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
@@ -72,17 +73,22 @@ function App(): JSX.Element {
   const getMainStack = () => {
     return (
       <Stack.Group>
-        <Stack.Screen name="MapScreen" component={MapScreen} />
         <Stack.Screen
-          name="ListScreen"
-          component={ListScreen}
-          options={{title: 'List'}}
+          name="Firestore"
+          component={FirestoreScreen}
+          options={{title: 'FirestoreScreen'}}
         />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{title: 'Overview'}}
         />
+        <Stack.Screen
+          name="ListScreen"
+          component={ListScreen}
+          options={{title: 'List'}}
+        />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
 
         <Stack.Screen
           name="UserProfile"
@@ -101,7 +107,7 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator>{getAuthStack()}</Stack.Navigator>
+        <Stack.Navigator>{getMainStack()}</Stack.Navigator>
       </Provider>
     </NavigationContainer>
   );
