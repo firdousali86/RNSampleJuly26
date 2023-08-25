@@ -7,7 +7,7 @@
 
 import React, {useEffect, useState} from 'react';
 import analytics from '@react-native-firebase/analytics';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {
@@ -20,7 +20,7 @@ import {
   FirestoreScreen,
 } from './containers';
 import UserProfile from './UserProfile';
-import PersistantHelper from './helpers/PersistantHelper';
+import {PersistantHelper, NotificationHelper} from './helpers';
 import {EventRegister} from 'react-native-event-listeners';
 import {Provider} from 'react-redux';
 import store from './store';
@@ -29,6 +29,8 @@ import auth from '@react-native-firebase/auth';
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
+  const navigation = useNavigation();
+
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const getUserName = async () => {
@@ -46,6 +48,27 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
+    NotificationHelper.initializeFCM(
+      recievedMessage => {
+        if (recievedMessage.type === 'orderBooked') {
+          //call order api
+        }
+
+        if (recievedMessage.type === 'newemail') {
+          //call inbox api
+        }
+      },
+      tappedMessage => {
+        if (tappedMessage.type === 'news') {
+          //navigate to so n so views with data
+          // navigation.navigate('somescreenname');
+        }
+      },
+    );
+    NotificationHelper.checkFCMPermission();
+    NotificationHelper.getToken();
+    NotificationHelper.refreshToken();
+
     analytics().logEvent('testrun', {
       name: 'firdous ali',
     });
