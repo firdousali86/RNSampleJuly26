@@ -16,6 +16,7 @@ import {
   ListScreen,
   CartScreen,
   MapScreen,
+  ListScreen2,
 } from './containers';
 import UserProfile from './UserProfile';
 import PersistantHelper from './helpers/PersistantHelper';
@@ -61,12 +62,17 @@ function App(): JSX.Element {
   const getMainStack = () => {
     return (
       <Stack.Group>
-        <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen
+          name="ListScreen2"
+          component={ListScreen2}
+          options={{title: 'List'}}
+        />
         <Stack.Screen
           name="ListScreen"
           component={ListScreen}
           options={{title: 'List'}}
         />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -90,7 +96,7 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator>{getAuthStack()}</Stack.Navigator>
+        <Stack.Navigator>{getMainStack()}</Stack.Navigator>
       </Provider>
     </NavigationContainer>
   );
