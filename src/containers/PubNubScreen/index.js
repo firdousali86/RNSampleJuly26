@@ -28,7 +28,7 @@ function Chat() {
 
     if (typeof message === 'string' || message.hasOwnProperty('text')) {
       const text = message.text || message;
-      addMessage([...messages, text]);
+      addMessage(messages => [...messages, text]);
     }
   };
 
