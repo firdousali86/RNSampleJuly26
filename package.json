@@ -22,6 +22,8 @@
     "@reduxjs/toolkit": "^1.9.5",
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
+    "pubnub": "^7.3.3",
+    "pubnub-react": "^3.0.2",
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-event-listeners": "^1.0.7",

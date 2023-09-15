@@ -5,6 +5,7 @@ import CartScreen from './CartScreen';
 import MapScreen from './MapScreen';
 import SignupScreen from './SignupScreen';
 import FirestoreScreen from './FirestoreScreen';
+import PubNubScreen from './PubNubScreen';
 
 export {
   HomeScreen,
@@ -14,4 +15,5 @@ export {
   MapScreen,
   SignupScreen,
   FirestoreScreen,
+  PubNubScreen,
 };

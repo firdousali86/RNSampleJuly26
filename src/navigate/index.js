@@ -11,6 +11,7 @@ import {
   MapScreen,
   SignupScreen,
   FirestoreScreen,
+  PubNubScreen,
 } from '../containers';
 import UserProfile from '../UserProfile';
 import {useNavigation} from '@react-navigation/native';
@@ -53,6 +54,11 @@ const Navigation = () => {
   const getMainStack = () => {
     return (
       <Stack.Group>
+        <Stack.Screen
+          name="PubNub"
+          component={PubNubScreen}
+          options={{title: 'PubNubScreen'}}
+        />
         <Stack.Screen
           name="Firestore"
           component={FirestoreScreen}
